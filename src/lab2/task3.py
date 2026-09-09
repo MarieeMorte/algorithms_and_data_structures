@@ -8,7 +8,6 @@ class Node:
 
 
 def insert(root, key):
-    """Вставка ключа в BST (без дубликатов)"""
     if root is None:
         return Node(key)
 
@@ -29,7 +28,6 @@ def insert(root, key):
 
 
 def find_next(root, key):
-    """Поиск минимального элемента > key"""
     result = 0
     current = root
 
