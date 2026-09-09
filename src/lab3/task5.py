@@ -19,7 +19,6 @@ def solve_scc():
         graph[u].append(v)
         rev_graph[v].append(u)
 
-    # Первый проход: заполняем порядок завершения
     visited = [False] * n
     order = []
 
@@ -34,7 +33,6 @@ def solve_scc():
         if not visited[i]:
             dfs1(i)
 
-    # Второй проход: на обратном графе
     visited = [False] * n
     components = 0
 
