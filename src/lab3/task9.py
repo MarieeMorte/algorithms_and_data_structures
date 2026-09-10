@@ -18,17 +18,16 @@ def solve_negative_cycle():
         w = int(parts[2])
         edges.append((u, v, w))
 
-    INF = 10 ** 18
-    dist = [INF] * n
-    dist[0] = 0
+    inf = 10 ** 18
+    dist = [0] * n
 
     for _ in range(n - 1):
         for u, v, w in edges:
-            if dist[u] != INF and dist[v] > dist[u] + w:
+            if dist[u] != inf and dist[v] > dist[u] + w:
                 dist[v] = dist[u] + w
 
     for u, v, w in edges:
-        if dist[u] != INF and dist[v] > dist[u] + w:
+        if dist[u] != inf and dist[v] > dist[u] + w:
             with open('output.txt', 'w') as f:
                 f.write('1\n')
             return
