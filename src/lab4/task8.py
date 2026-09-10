@@ -45,12 +45,12 @@ def solve():
         def get_hash_t(l, r):
             h1 = (ht1[r] - ht1[l] * pow1[r - l]) % mod1
             h2 = (ht2[r] - ht2[l] * pow2[r - l]) % mod2
-            return (h1, h2)
+            return h1, h2
 
         def get_hash_p(l, r):
             h1 = (hp1[r] - hp1[l] * pow1[r - l]) % mod1
             h2 = (hp2[r] - hp2[l] * pow2[r - l]) % mod2
-            return (h1, h2)
+            return h1, h2
 
         positions = []
 
