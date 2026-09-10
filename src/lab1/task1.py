@@ -19,13 +19,11 @@ def solve_fractional_knapsack():
     remaining_capacity = capacity
 
     for price, weight in items:
-        if remaining_capacity <= 0:
-            break
-
         if weight == 0:
             total_value += price
             continue
-
+        if remaining_capacity <= 0:
+            break
         if weight <= remaining_capacity:
             total_value += price
             remaining_capacity -= weight
