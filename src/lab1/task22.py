@@ -15,7 +15,6 @@ def solve_pretty_patterns():
         for mask2 in range(total_masks):
             compatible = True
             for col in range(width - 1):
-                # Проверяем квадрат 2x2
                 if ((mask1 >> col) & 1) == ((mask1 >> (col + 1)) & 1) == \
                         ((mask2 >> col) & 1) == ((mask2 >> (col + 1)) & 1):
                     compatible = False
