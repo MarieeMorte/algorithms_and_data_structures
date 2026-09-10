@@ -22,19 +22,23 @@ def solve():
         left[i] = int(parts[1])
         right[i] = int(parts[2])
 
-    def is_valid(node, min_key, max_key):
+    stack = [(0, -2 ** 31, 2 ** 31 - 1)]
+    result = True
+
+    while stack:
+        node, min_key, max_key = stack.pop()
+
         if node == -1:
-            return True
+            continue
 
         key = keys[node]
 
         if key < min_key or key > max_key:
-            return False
+            result = False
+            break
 
-        return (is_valid(left[node], min_key, key - 1) and
-                is_valid(right[node], key, max_key))
-
-    result = is_valid(0, -2 ** 31, 2 ** 31 - 1)
+        stack.append((left[node], min_key, key - 1))
+        stack.append((right[node], key, max_key))
 
     with open('output.txt', 'w') as f:
         f.write('CORRECT\n' if result else 'INCORRECT\n')
