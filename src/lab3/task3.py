@@ -1,3 +1,8 @@
+import sys
+
+sys.setrecursionlimit(10000)
+
+
 def solve_cycles():
     with open('input.txt', 'r') as f:
         lines = f.readlines()
