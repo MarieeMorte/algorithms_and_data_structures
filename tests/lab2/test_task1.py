@@ -42,15 +42,7 @@ def test_example_2():
     )
 
 
-def test_two_nodes_left():
-    check(1, "2\n10 1 -1\n5 -1 -1\n", "5 10\n10 5\n5 10")
-
-
-def test_two_nodes_right():
-    check(1, "2\n10 -1 1\n5 -1 -1\n", "10 5\n10 5\n5 10")
-
-
-def test_chain_right_max():
+def test_maximum():
     n = 100_000
     lines = [str(n)]
     for i in range(n - 1):
@@ -63,6 +55,14 @@ def test_chain_right_max():
     expected_post = " ".join(str(i) for i in range(n - 1, -1, -1))
 
     check(1, input_data, f"{expected_in}\n{expected_pre}\n{expected_post}")
+
+
+def test_two_nodes_left():
+    check(1, "2\n10 1 -1\n5 -1 -1\n", "5 10\n10 5\n5 10")
+
+
+def test_two_nodes_right():
+    check(1, "2\n10 -1 1\n5 -1 -1\n", "10 5\n10 5\n5 10")
 
 
 def test_chain_left_max():
