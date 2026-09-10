@@ -1,3 +1,6 @@
+from typing import List, Tuple
+
+
 def solve_scc():
     with open('input.txt', 'r') as f:
         lines = f.readlines()
@@ -9,8 +12,8 @@ def solve_scc():
 
     n, m = map(int, lines[0].split())
 
-    graph = [[] for _ in range(n)]
-    rev_graph = [[] for _ in range(n)]
+    graph: List[List[int]] = [[] for _ in range(n)]
+    rev_graph: List[List[int]] = [[] for _ in range(n)]
 
     for i in range(1, m + 1):
         u, v = map(int, lines[i].split())
@@ -19,33 +22,41 @@ def solve_scc():
         graph[u].append(v)
         rev_graph[v].append(u)
 
-    visited = [False] * n
-    order = []
+    visited: List[bool] = [False] * n
+    order: List[int] = []
 
-    def dfs1(vertex):
-        visited[vertex] = True
-        for neighbor in graph[vertex]:
-            if isinstance(neighbor, int) and not visited[neighbor]:
-                dfs1(neighbor)
-        order.append(vertex)
-
-    for i in range(n):
-        if not visited[i]:
-            dfs1(i)
+    for start in range(n):
+        if visited[start]:
+            continue
+        visited[start] = True
+        dfs_stack: List[Tuple[int, int]] = [(start, 0)]
+        while dfs_stack:
+            vertex, idx = dfs_stack[-1]
+            if idx < len(graph[vertex]):
+                neighbor = graph[vertex][idx]
+                dfs_stack[-1] = (vertex, idx + 1)
+                if not visited[neighbor]:
+                    visited[neighbor] = True
+                    dfs_stack.append((neighbor, 0))
+            else:
+                order.append(vertex)
+                dfs_stack.pop()
 
     visited = [False] * n
     components = 0
 
-    def dfs2(vertex):
-        visited[vertex] = True
-        for neighbor in rev_graph[vertex]:
-            if isinstance(neighbor, int) and not visited[neighbor]:
-                dfs2(neighbor)
-
-    for i in reversed(order):
-        if not visited[i]:
-            dfs2(i)
-            components += 1
+    for start in reversed(order):
+        if visited[start]:
+            continue
+        components += 1
+        visited[start] = True
+        walk_stack: List[int] = [start]
+        while walk_stack:
+            vertex = walk_stack.pop()
+            for neighbor in rev_graph[vertex]:
+                if not visited[neighbor]:
+                    visited[neighbor] = True
+                    walk_stack.append(neighbor)
 
     with open('output.txt', 'w') as f:
         f.write(str(components) + '\n')
