@@ -1,3 +1,7 @@
+from collections import deque
+from typing import List
+
+
 def solve_topological_sort():
     with open('input.txt', 'r') as f:
         lines = f.readlines()
@@ -9,30 +13,32 @@ def solve_topological_sort():
 
     n, m = map(int, lines[0].split())
 
-    graph = [[] for _ in range(n)]
+    graph: List[List[int]] = [[] for _ in range(n)]
+    in_degree: List[int] = [0] * n
 
     for i in range(1, m + 1):
         u, v = map(int, lines[i].split())
         u -= 1
         v -= 1
         graph[u].append(v)
+        in_degree[v] += 1
 
-    visited = [False] * n
-    order = []
-
-    def dfs(vertex):
-        visited[vertex] = True
-        for neighbor in graph[vertex]:
-            if isinstance(neighbor, int) and not visited[neighbor]:
-                dfs(neighbor)
-        order.append(vertex)
-
+    queue = deque()
     for i in range(n):
-        if not visited[i]:
-            dfs(i)
+        if in_degree[i] == 0:
+            queue.append(i)
+
+    order: List[int] = []
+    while queue:
+        vertex = queue.popleft()
+        order.append(vertex)
+        for neighbor in graph[vertex]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
 
     with open('output.txt', 'w') as f:
-        f.write(' '.join(str(v + 1) for v in reversed(order)) + '\n')
+        f.write(' '.join(str(v + 1) for v in order) + '\n')
 
 
 if __name__ == "__main__":
