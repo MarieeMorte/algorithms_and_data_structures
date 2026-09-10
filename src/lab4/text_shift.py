@@ -9,12 +9,18 @@ def solve():
         result = -1
     else:
         doubled = s + s
-        pos = doubled.find(t)
+        best_x = -1
+        start = 0
+        while True:
+            pos = doubled.find(t, start)
+            if pos == -1 or pos >= n:
+                break
+            x = (n - pos) % n
+            if best_x == -1 or x < best_x:
+                best_x = x
+            start = pos + 1
 
-        if pos == -1 or pos >= n:
-            result = -1
-        else:
-            result = (n - pos) % n
+        result = best_x
 
     with open('output.txt', 'w') as f:
         f.write(str(result))
