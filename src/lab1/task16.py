@@ -11,7 +11,8 @@ def solve_tsp():
     dp = [[inf] * n for _ in range(1 << n)]
     parent = [[-1] * n for _ in range(1 << n)]
 
-    dp[1][0] = 0
+    for i in range(n):
+        dp[1 << i][i] = 0
 
     for mask in range(1 << n):
         for last in range(n):
