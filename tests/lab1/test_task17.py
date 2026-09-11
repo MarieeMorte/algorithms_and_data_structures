@@ -1,5 +1,3 @@
-import random
-
 from test_utils import check
 
 MOD = 10 ** 9
