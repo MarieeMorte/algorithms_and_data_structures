@@ -41,16 +41,16 @@ def solve():
         def get_hash_s(l, r):
             h1 = (hs1[r] - hs1[l] * pow1[r - l]) % mod1
             h2 = (hs2[r] - hs2[l] * pow2[r - l]) % mod2
-            return (h1, h2)
+            return h1, h2
 
         def get_hash_t(l, r):
             h1 = (ht1[r] - ht1[l] * pow1[r - l]) % mod1
             h2 = (ht2[r] - ht2[l] * pow2[r - l]) % mod2
-            return (h1, h2)
+            return h1, h2
 
         def check(k):
             if k == 0:
-                return (0, 0)
+                return 0, 0
             seen = {}
             for i in range(ns - k + 1):
                 h = get_hash_s(i, i + k)
@@ -59,7 +59,7 @@ def solve():
             for j in range(nt - k + 1):
                 h = get_hash_t(j, j + k)
                 if h in seen:
-                    return (seen[h], j)
+                    return seen[h], j
             return None
 
         lo, hi = 0, min(ns, nt)
