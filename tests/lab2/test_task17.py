@@ -5,7 +5,7 @@ def test_minimal():
     check(17, "1\n? 0\n", "Not found")
 
 
-def test_example():
+def test_example_1():
     check(
         17,
         "15\n"
@@ -32,6 +32,32 @@ def test_example():
         "1\n"
         "Not found\n"
         "10",
+    )
+
+
+def test_example_2():
+    check(
+        17,
+        "5\n"
+        "? 0\n"
+        "+ 0\n"
+        "? 0\n"
+        "- 0\n"
+        "? 0\n",
+        "Not found\nFound\nNot found",
+    )
+
+
+def test_example_3():
+    check(
+        17,
+        "5\n"
+        "+ 491572259\n"
+        "? 491572259\n"
+        "? 899375874\n"
+        "s 310971296 877523306\n"
+        "+ 352411209\n",
+        "Found\nNot found\n491572259",
     )
 
 
