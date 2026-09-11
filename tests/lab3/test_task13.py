@@ -50,7 +50,6 @@ def test_maximal_empty():
 
 
 def test_maximal_checkerboard():
-    # Каждая # изолирована (только угловые касания - не считаются)
     n = 200
     m = 200
     lines = [f"{n} {m}"]
