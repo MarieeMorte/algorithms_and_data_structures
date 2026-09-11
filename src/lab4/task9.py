@@ -22,14 +22,23 @@ def solve():
                 best_rep = 1
 
         for length in range(1, max_len + 1):
-            if length >= best:
+            if length + 2 >= best:
                 break
-            block = s[i:i + length]
-            repeat = 1
-            pos = i + length
-            while pos + length <= n and s.startswith(block, pos):
-                repeat += 1
-                pos += length
+
+            if length == 1:
+                ch = s[i]
+                repeat = 1
+                pos = i + 1
+                while pos < n and s[pos] == ch:
+                    repeat += 1
+                    pos += 1
+            else:
+                block = s[i:i + length]
+                repeat = 1
+                pos = i + length
+                while pos + length <= n and s.startswith(block, pos):
+                    repeat += 1
+                    pos += length
 
             if repeat >= 2:
                 cost = length + 1 + len(str(repeat)) + dp[i + length * repeat]
