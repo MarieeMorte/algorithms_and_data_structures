@@ -12,30 +12,22 @@ def solve():
         best_len = 1
         best_rep = 1
 
-        sub = s[i:]
-        m = len(sub)
-        z = [0] * m
-        l, r = 0, 0
-        for j in range(1, m):
-            if j <= r:
-                z[j] = min(r - j + 1, z[j - l])
-            while j + z[j] < m and sub[z[j]] == sub[j + z[j]]:
-                z[j] += 1
-            if j + z[j] - 1 > r:
-                l = j
-                r = j + z[j] - 1
+        max_len = min(n - i, best)
 
-        for length in range(2, m + 1):
+        for length in range(2, max_len + 1):
             cost = length + dp[i + length]
             if cost <= best:
                 best = cost
                 best_len = length
                 best_rep = 1
 
-        for length in range(1, m + 1):
+        for length in range(1, max_len + 1):
+            if length >= best:
+                break
+            block = s[i:i + length]
             repeat = 1
-            pos = length
-            while pos + length <= m and z[pos] >= length:
+            pos = i + length
+            while pos + length <= n and s.startswith(block, pos):
                 repeat += 1
                 pos += length
 
