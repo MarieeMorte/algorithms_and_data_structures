@@ -47,7 +47,6 @@ def can_partition_into_three_equal_sums():
 
 
 def can_partition_into_two(mask, target, values, n):
-    """Проверяет, можно ли разбить подмножество mask на 2 группы с суммой target"""
     total = 0
     for i in range(n):
         if mask & (1 << i):
