@@ -9,7 +9,7 @@ def solve():
             f.write('')
         return
 
-    l_max = 20
+    l_max = int(n ** 0.5) + 1
 
     runs = [[1] * (n + 1) for _ in range(l_max + 1)]
 
