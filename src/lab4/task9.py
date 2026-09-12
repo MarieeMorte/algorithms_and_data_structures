@@ -3,6 +3,22 @@ def solve():
         s = f.readline().strip()
 
     n = len(s)
+
+    if n == 0:
+        with open('output.txt', 'w') as f:
+            f.write('')
+        return
+
+    l_max = 20
+
+    runs = [[1] * (n + 1) for _ in range(l_max + 1)]
+
+    for L in range(1, l_max + 1):
+        arr = runs[L]
+        for i in range(n - 2 * L, -1, -1):
+            if s[i:i + L] == s[i + L:i + 2 * L]:
+                arr[i] = arr[i + L] + 1
+
     dp = [0] * (n + 1)
     choice_len = [0] * (n + 1)
     choice_rep = [1] * (n + 1)
@@ -25,13 +41,8 @@ def solve():
             if length + 2 >= best:
                 break
 
-            if length == 1:
-                ch = s[i]
-                repeat = 1
-                pos = i + 1
-                while pos < n and s[pos] == ch:
-                    repeat += 1
-                    pos += 1
+            if length <= l_max:
+                repeat = runs[length][i]
             else:
                 block = s[i:i + length]
                 repeat = 1
